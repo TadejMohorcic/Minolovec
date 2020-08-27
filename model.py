@@ -51,7 +51,6 @@ def zacni_igro(v, s):
     st_min = s * v // 10
     postavi_mino(st_min)
     prestej_okoli_min()
-    print(polje)
 
 def odkri_polje(v, s):
     global stolpci
@@ -113,10 +112,8 @@ def odstrani_mino():
     global st_min
 
     st_min -= 1
-    print(st_min)
 
 def dodaj_mino():
     global st_min
 
     st_min += 1
-    print(st_min)
