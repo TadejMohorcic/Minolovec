@@ -15,14 +15,17 @@ def GlavnaStranPost():
 
 @bottle.get("/igra")
 def Igra():
-    return bottle.template("Igra.tpl", Stolpec = model.stolpci, Vrstica = model.vrstice, Polje = model.polje_prikaz)
+    return bottle.template("Igra.tpl", Stolpec = model.stolpci, Vrstica = model.vrstice, Polje = model.polje_prikaz, Mine = model.st_min)
 
 @bottle.post("/igra")
 def IgraPost():
     v = bottle.request.forms.get("vrstica", type = int)
     s = bottle.request.forms.get("stolpec", type = int)
-    model.odkri_polje(v, s)
-    return bottle.template("Igra.tpl", Stolpec = model.stolpci, Vrstica = model.vrstice, Polje = model.polje_prikaz)
+    if v == None:
+        model.toggle_zastava()
+    else:
+        model.odkri_polje(v, s)
+    return bottle.template("Igra.tpl", Stolpec = model.stolpci, Vrstica = model.vrstice, Polje = model.polje_prikaz, Mine = model.st_min)
 
 
 bottle.run(debug=True, reloader=True)

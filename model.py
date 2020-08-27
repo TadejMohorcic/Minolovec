@@ -4,6 +4,8 @@ global polje
 global polje_prikaz
 global stolpci
 global vrstice
+global zastava
+global st_min
 
 def postavi_mino(m):
     global polje
@@ -36,6 +38,10 @@ def zacni_igro(v, s):
     global vrstice
     global polje
     global polje_prikaz
+    global zastava
+    global st_min
+
+    zastava = False
 
     stolpci = s
     vrstice = v
@@ -45,33 +51,72 @@ def zacni_igro(v, s):
     st_min = s * v // 10
     postavi_mino(st_min)
     prestej_okoli_min()
+    print(polje)
 
 def odkri_polje(v, s):
     global stolpci
     global vrstice
     global polje
     global polje_prikaz
+    global zastava
+
+    if zastava == True:
+        if not polje_prikaz[v][s] == -3:
+            polje_prikaz[v][s] = -3
+            odstrani_mino()
+        else:
+            polje_prikaz[v][s] = -2
+            dodaj_mino()
+        return
 
     if polje_prikaz[v][s] == polje[v][s]:
         return
+
+    if polje_prikaz[v][s] == -3:
+        dodaj_mino()
 
     polje_prikaz[v][s] = polje[v][s]
     p = polje_prikaz[v][s]
 
     if p == 0:
         if 0 < v:
-            odkri_polje(v - 1, s)
+            if not polje_prikaz[v - 1][s] == -3:
+                odkri_polje(v - 1, s)
         if v < vrstice - 1:
-            odkri_polje(v + 1, s)
+            if not polje_prikaz[v + 1][s] == -3:
+                odkri_polje(v + 1, s)
         if 0 < s:
-            odkri_polje(v, s - 1)
+            if not polje_prikaz[v][s - 1] == -3:
+                odkri_polje(v, s - 1)
         if s < stolpci - 1:
-            odkri_polje(v, s + 1)
+            if not polje_prikaz[v][s + 1] == -3:
+                odkri_polje(v, s + 1)
         if 0 < v and 0 < s:
-            odkri_polje(v - 1, s - 1)
+            if not polje_prikaz[v - 1][s - 1] == -3:
+                odkri_polje(v - 1, s - 1)
         if 0 < v and s < stolpci - 1:
-            odkri_polje(v - 1, s + 1)
+            if not polje_prikaz[v - 1][s + 1] == -3:
+                odkri_polje(v - 1, s + 1)
         if v < vrstice - 1 and 0 < s:
-            odkri_polje(v + 1, s - 1)
+            if not polje_prikaz[v + 1][s - 1] == -3:
+                odkri_polje(v + 1, s - 1)
         if v < vrstice - 1 and s < stolpci - 1:
-            odkri_polje(v + 1, s + 1)
+            if not polje_prikaz[v + 1][s + 1] == -3:
+                odkri_polje(v + 1, s + 1)
+
+def toggle_zastava():
+    global zastava
+
+    zastava = not zastava
+
+def odstrani_mino():
+    global st_min
+
+    st_min -= 1
+    print(st_min)
+
+def dodaj_mino():
+    global st_min
+
+    st_min += 1
+    print(st_min)
