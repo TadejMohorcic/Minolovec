@@ -6,6 +6,10 @@ global stolpci
 global vrstice
 global zastava
 global st_min
+global mine
+global kuza
+
+kuza = 400
 
 def postavi_mino(m):
     global polje
@@ -40,6 +44,7 @@ def zacni_igro(v, s):
     global polje_prikaz
     global zastava
     global st_min
+    global mine
 
     zastava = False
 
@@ -49,6 +54,7 @@ def zacni_igro(v, s):
     polje_prikaz = [[-2] * stolpci for i in range(vrstice)]
 
     st_min = s * v // 10
+    mine = s * v // 10
     postavi_mino(st_min)
     prestej_okoli_min()
 
@@ -110,10 +116,41 @@ def toggle_zastava():
 
 def odstrani_mino():
     global st_min
-
-    st_min -= 1
+    if st_min == 0:
+        return
+    else:
+        st_min -= 1
 
 def dodaj_mino():
     global st_min
 
     st_min += 1
+
+def preveri_izid():
+    global mine
+    global polje_prikaz
+    global vrstice
+    global stolpci
+
+    prestej_mine = 0
+
+    for i in range(vrstice):
+        for j in range(stolpci):
+            if polje_prikaz[i][j] == -1:
+                return 'p'
+            if polje_prikaz[i][j] == -3 or polje_prikaz[i][j] == -2:
+                prestej_mine += 1
+    if prestej_mine == mine:
+        return 'z'
+    else:
+        return 'i'
+
+def dodaj_zalost():
+    global kuza
+
+    kuza += 100
+
+def poenostavi_zalost():
+    global kuza
+
+    kuza = 100
