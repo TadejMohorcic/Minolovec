@@ -116,6 +116,7 @@ def toggle_zastava():
 
 def odstrani_mino():
     global st_min
+    
     if st_min == 0:
         return
     else:
