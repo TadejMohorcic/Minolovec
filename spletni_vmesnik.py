@@ -21,7 +21,7 @@ def vrni_sliko(slika):
 
 @bottle.get("/igra")
 def igra():
-    return bottle.template("Igra.html", Stolpec = model.stolpci, Vrstica = model.vrstice, Polje = model.polje_prikaz, Mine = model.st_min)
+    return bottle.template("Igra.html", Stolpec = model.stolpci, Vrstica = model.vrstice, Polje = model.polje_prikaz, Mine = model.st_min, Barva = model.barva)
 
 @bottle.post("/igra")
 def igra_post():
@@ -37,7 +37,7 @@ def igra_post():
     if rezultat == 'z':
         bottle.redirect("/zmaga")
     if rezultat == 'i':
-        return bottle.template("Igra.html", Stolpec = model.stolpci, Vrstica = model.vrstice, Polje = model.polje_prikaz, Mine = model.st_min)
+        return bottle.template("Igra.html", Stolpec = model.stolpci, Vrstica = model.vrstice, Polje = model.polje_prikaz, Mine = model.st_min, Barva = model.barva)
 
 @bottle.get("/zmaga")
 def zmaga_stran():

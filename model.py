@@ -8,6 +8,7 @@ global zastava
 global st_min
 global mine
 global kuza
+global barva
 
 kuza = 400
 
@@ -45,8 +46,10 @@ def zacni_igro(v, s):
     global zastava
     global st_min
     global mine
+    global barva
 
     zastava = False
+    barva = "#231F20"
 
     stolpci = s
     vrstice = v
@@ -111,8 +114,14 @@ def odkri_polje(v, s):
 
 def toggle_zastava():
     global zastava
+    global barva
 
-    zastava = not zastava
+    if zastava == True:
+        barva = '#231F20'
+        zastava = not zastava
+    else:
+        barva = '#FF0000'
+        zastava = not zastava
 
 def odstrani_mino():
     global st_min
